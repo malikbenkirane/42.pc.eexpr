@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shunting_yard.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mben-kir <mben-kir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/22 22:55:10 by mben-kir          #+#    #+#             */
+/*   Updated: 2018/07/22 23:02:59 by mben-kir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "tokens.h"
 #include "stack.h"
 #include "yard.h"
@@ -37,13 +49,13 @@ void	parse_operator(t_token *operator, t_stack **operators, t_stack **rpn)
 	else if (operator->data.operator == ')')
 	{
 		tok = stack_pop(operators);
-		while(tok->data.operator != '(')
+		while (tok->data.operator != '(')
 			stack_push(tok, rpn);
 		stack_pop(rpn);
 	}
 	else if ((*operators)->top &&
-			((*operators)->top->data.operator != '(' &&
-			 (*operators)->top->data.operator != ')') &&
+				((*operators)->top->data.operator != '(' &&
+				(*operators)->top->data.operator != ')') &&
 			cmp_precedence(
 				(*operators)->top->data.operator,
 				operator->data.operator) <= 0)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tokens.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mben-kir <mben-kir@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/07/22 22:49:27 by mben-kir          #+#    #+#             */
+/*   Updated: 2018/07/22 23:02:08 by mben-kir         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef TOKENS_H
 # define TOKENS_H
 
@@ -62,7 +74,10 @@ typedef struct		s_tokens_list
 	t_tokens		*tail;
 }					t_tokens_list;
 
-
 t_tokens_list		*tokenize(char *str);
+t_token				*init_number_token(int number);
+t_token				*new_operator_token(char operator);
+void				push_token(
+		t_tokens_list *tokens, int as_number, char *operator, int *number);
 
 #endif
