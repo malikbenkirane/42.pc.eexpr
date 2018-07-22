@@ -15,7 +15,7 @@ SOURCES		=	src/eval_expr.c \
 
 OBJS		=	$(SOURCES:.c=.o)
 
-test:	$(OBJS)
+eval_expr:	$(OBJS)
 		$(CC) $(CFLAGS) $(CPFLAGS) -o $@ $^
 
 %.o:	%.c
