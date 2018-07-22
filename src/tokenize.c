@@ -23,19 +23,20 @@ t_tokens_list	*tokenize(char *str)
 	{
 		while (ISSPACE(*str))
 			str++;
+		if (*str == '\0')
+			break;
 		if ((number = ft_atoi_fwd(&str)))
 			push_token(tokens, 1, NULL, &number);
 		else if (ISOPERATOR(*str))
-			push_token(tokens, 0, str, NULL);
+			push_token(tokens, 0, str++, NULL);
 		else
 			return (NULL);
-		if (*str)
-			str++;
 	}
 	return (tokens);
 }
 
-void			push_token(t_tokens_list *tokens, int as_number, char *operator, int *number)
+void			push_token(
+		t_tokens_list *tokens, int as_number, char *operator, int *number)
 {
 	t_tokens *token;
 
@@ -60,7 +61,7 @@ t_token			*new_number_token(int number)
 	if (new)
 	{
 		new->as_number = TRUE;
-		new->number = number;
+		new->data.number = number;
 	}
 	return (new);
 }
@@ -73,7 +74,7 @@ t_token			*new_operator_token(char operator)
 	if (new)
 	{
 		new->as_number = FALSE;
-		new->operator = operator;
+		new->data.operator = operator;
 	}
 	return (new);
 }
