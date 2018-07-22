@@ -36,14 +36,19 @@
 # define ISOP4(o) 		(o == OPERATORS[LPAR] || o == OPERATORS[RPAR])
 # define ISOPERATOR(o)	(ISOP1(o) || ISOP2(o) || ISOP3(o) || ISOP4(o))
 
-typedef short	t_bool;
+typedef short		t_bool;
 
-typedef union	u_token
+typedef union		u_token
 {
-	int			number;
-	char		operator;
-	t_bool		as_number;
-}				t_token;
+	int				number;
+	char			operator;
+}					t_token_data;
+
+typedef struct		s_token
+{
+	t_token_data	data;
+	t_bool			as_number;
+}					t_token;
 
 typedef struct		s_tokens
 {

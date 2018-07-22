@@ -13,13 +13,15 @@ t_stack	*stack_init(t_token *top)
 t_token	*stack_pop(t_stack **stack)
 {
 	t_stack *tmp;
+	t_token *top;
 
-	tmp = *stack;
-	if (!tmp)
+	if (!*stack)
 		return (NULL);
-	*stack = tmp->stack;
+	top = (*stack)->top;
+	tmp = *stack;
+	*stack = (*stack)->stack;
 	free(tmp);
-	return (tmp->top);
+	return (top);
 }
 
 void	stack_push(t_token *token, t_stack **stack)

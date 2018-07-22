@@ -14,16 +14,17 @@ void	ft_syard(t_tokens_list *tokens, t_stack **operators, t_stack **rpn)
 		{
 			stack_push(token->token, rpn);
 		}
-		else if (ISOPERATOR(token->token->operator))
+		else if (ISOPERATOR(token->token->data.operator))
 		{
 			parse_operator(token->token, operators, rpn);
 		}
-		else
-		{
-			tok = stack_pop(operators);
-			stack_push(tok, rpn);
-		}
 		token = token->next;
+	}
+	tok = stack_pop(operators);
+	while (tok)
+	{
+		stack_push(tok, rpn);
+		tok = stack_pop(operators);
 	}
 }
 
@@ -31,17 +32,21 @@ void	parse_operator(t_token *operator, t_stack **operators, t_stack **rpn)
 {
 	t_token		*tok;
 
-	if (operator->operator == '(')
+	if (operator->data.operator == '(')
 		stack_push(operator, operators);
-	else if (operator->operator == ')')
+	else if (operator->data.operator == ')')
 	{
 		tok = stack_pop(operators);
-		while(tok->operator != '(')
+		while(tok->data.operator != '(')
 			stack_push(tok, rpn);
 		stack_pop(rpn);
 	}
 	else if ((*operators)->top &&
-			cmp_precedence((*operators)->top->operator, operator->operator) <= 0)
+			((*operators)->top->data.operator != '(' &&
+			 (*operators)->top->data.operator != ')') &&
+			cmp_precedence(
+				(*operators)->top->data.operator,
+				operator->data.operator) <= 0)
 	{
 		tok = stack_pop(operators);
 		stack_push(tok, rpn);
