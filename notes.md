@@ -13,3 +13,4 @@
 * `ft_putnbr` and `ft_putchar`
 * `eval_expr` target
 * protect mallocs
+* free memory
