@@ -14,3 +14,8 @@
 * `eval_expr` target
 * protect mallocs
 * free memory
+
+# RENEW
+
+* fix rpn pop-compute
+* check rpn parse step
